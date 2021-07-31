@@ -1,26 +1,34 @@
 
 const express = require('express')
+const expressLayouts = require('express-ejs-layouts');
 const app = express()
 const port = 3000
 
 // use ejs
 app.set('view engine', 'ejs');
+app.use(expressLayouts);
 
 app.get('/', (req, res) => {
-    // res.sendFile('./index.html', {root: __dirname})
-    res.render('index', {nama: 'Ganapatih', title: 'Home'})
+    res.render('index', {
+        nama: 'Ganapatih', 
+        layout: 'layouts/main-layout',
+        title: 'Home'})
 })
 
-app.get('/produk/:id', (req, res) => {
-        res.send('produk: '+req.params.id)
-    })
-
 app.get('/about', (req, res) => {
-    res.sendFile('./about.html', {root: __dirname})
+    res.render('about', {
+        layout: 'layouts/main-layout',
+        title: 'About Pages'})
 })
 
 app.get('/contact', (req, res) => {
-    res.sendFile('./contact.html', {root: __dirname})
+    res.render('contact', {
+        layout: 'layouts/main-layout',
+        title: 'Contact Pages'})
+})
+
+app.get('/produk/:id', (req, res) => {
+    res.send('produk: '+req.params.id)
 })
 
 app.use('/', (req, res) => {
