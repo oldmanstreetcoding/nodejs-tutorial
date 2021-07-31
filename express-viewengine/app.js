@@ -8,11 +8,19 @@ const port = 3000
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
+app.use(express.static('public'));
+
+// applicatin level middlewares
+app.use((req, res, next) => {
+    console.log(`Time: ${Date.now()}`);
+    next();
+})
+
 app.get('/', (req, res) => {
     res.render('index', {
         nama: 'Ganapatih', 
         layout: 'layouts/main-layout',
-        title: 'Home'})
+        title: 'Home Pages'})
 })
 
 app.get('/about', (req, res) => {
